@@ -1,0 +1,32 @@
+{
+  "name": "application-only-authentication",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Application-Only Authentication",
+  "scripts": {
+    "start": "npm-run-all -p watch-css start-react start-node",
+    "start-custom": "npm-run-all -p build-react watch-css start-node",
+    "start-react": "react-scripts start",
+    "start-node": "nodemon server/",
+    "build": "npm run build-css && react-scripts build",
+    "build-react": "react-scripts build",
+    "build-css": "node-sass-chokidar src/scss/ -o src/css/",
+    "watch-css": "node-sass-chokidar src/scss/ -o src/css/ --watch --recursive",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "author": "",
+  "homepage": ".",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "axios": "^0.17.1",
+    "express": "^4.16.2",
+    "http": "0.0.0",
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "^4.1.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-scripts": "1.0.13"
+  }
+}
