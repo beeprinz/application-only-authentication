@@ -18,24 +18,31 @@ app.use('/', express.static('build'));
 app.get('/api/', (req,res) => {
 
     //Hint: You're going to want to encode your key and secret (https://developer.twitter.com/en/docs/basics/authentication/overview/application-only#issuing-application-only-requests)
-    let consumer_key = '';
-    let consumer_secret = '';
+    let consumer_key = encodeURIComponent('g3zihfr0Sx0OCleJsjZWmCdXo');
+    let consumer_secret = encodeURIComponent('y7foai0FLTk7yWhr351qJ3B7RLJ1wO0oH5K4PnhmTmtc1VrQnP');
 
     // Token should be "Bearer token credentials"
-    let token = '';
+    let token = consumer_key + ':' + consumer_secret;
 
     // Convert your token to base64
-    let credentials = '';
+    let credentials = new Buffer(token).toString('base64');
 
     // Create headers for axios post request
-    var headers = {};
+    var headers = {
+        "Authorization" : "Basic " + credentials,
+        "Content-Type" : "application/x-www-form-urlencoded;charset=UTF-8"
+    };
 
     // The body of the request
-    var body = '';
+    var body = "grant_type=client_credentials";
 
     axios.post('https://api.twitter.com/oauth2/token', body, { headers })
     .then(response => {
-        res.json(response);
+        // console.log('RESPONSE CONSOLE LOG', response);
+
+        bearer = response.data.access_token;
+         console.log('bearer console logzzzz', bearer)
+        res.send(response.data);
     })
     .catch(err => res.send(err.message));
 });

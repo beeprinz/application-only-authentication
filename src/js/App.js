@@ -26,6 +26,7 @@ class App extends Component {
   // componentDidMount runs on page load when component is viewable
   componentDidMount() {
     axios.get('http://localhost:8080/api/').then(res => {
+      console.log(res);
       this.setState({access: res.data.access_token})
     })
   }
@@ -46,21 +47,42 @@ class App extends Component {
   // Our render function shows our content, and gets reloaded every time this.state changes
   render() {
     return (
+      <div className='container'>
+      
       <div className="App">
+      <div className='jumbotron mt-5' >
         <div className="App-header">
-          <h2>Search tweets</h2>
+          <h1 className='text-center'>Tweets</h1> </div>
         </div>
-        <p className="App-intro">
-          <input type="text" onChange={this.setSearch}/>
+        <div className="col">
+                <div className="card  border-info">
+                    <div className="card-header text-white bg-danger text-center">
+                        Search History
+  </div>
+                    <div className="card-body pb-2 ">
+
+                       
+                    <p className="App-intro text-center">
+          <input type="text" className='mt-3' onChange={this.setSearch}/>
           <button onClick={this.getTweets}>Get Tweets</button>
         </p>
-        <ul>
+        <table className='table table-striped'>
+        <tbody>
+          <tr>
           { this.state.tweets && 
-            this.state.tweets.map((tweet) => {
-              return <Tweet tweet={tweet}/>
+            this.state.tweets.map((tweet, i ) => {
+              return <Tweet key={i} tweet={tweet}/>
             })
           }
-        </ul>
+          </tr>
+          </tbody>
+        </table>
+                    </div>
+                </div>
+
+            </div>
+
+      </div>
       </div>
     );
   }
